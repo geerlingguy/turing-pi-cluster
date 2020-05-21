@@ -1,0 +1,12 @@
+---
+node_exporter_version: '0.18.1'
+
+node_exporter_arch: '{{ ansible_architecture }}'
+node_exporter_download_url: https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}.tar.gz
+
+node_exporter_bin_path: /usr/local/bin/node_exporter
+
+node_exporter_options: ''
+
+node_exporter_state: started
+node_exporter_enabled: true

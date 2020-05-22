@@ -1,2 +1,3 @@
 ---
 ansible_user: pirate
+node_exporter_arch: armv7

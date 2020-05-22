@@ -1,0 +1,6 @@
+---
+# TODO: Maybe download the yaml to this repo instead of pulling over http.
+- name: Deploy Prometheus Operator.
+  k8s:
+    definition: "{{ lookup('file', 'files/bundle.yaml') }}"
+    state: present

@@ -17,7 +17,9 @@
   pre_tasks:
     - name: Ensure required dependencies are installed.
       package:
-        name: python3-setuptools
+        name:
+          - python3-setuptools
+          - git
         state: present
       become: true
       tags: ['always']
@@ -32,6 +34,3 @@
   roles:
     - role: prometheus_kubernetes
       tags: ['monitoring', 'prometheus']
-
-    - role: grafana_kubernetes
-      tags: ['monitoring', 'grafana']

@@ -1,6 +1,39 @@
 ---
-# TODO: Maybe download the yaml to this repo instead of pulling over http.
-- name: Deploy Prometheus Operator.
+- name: Clone the kube-prometheus project.
+  git:
+    repo: https://github.com/coreos/kube-prometheus.git
+    dest: ~/kube-prometheus
+    version: "{{ kube_prometheus_version }}"
+  become: false
+
+- name: Find all the manifests in the manifests/setup directory.
+  find:
+    paths: ~/kube-prometheus/manifests/setup
+    file_type: file
+    patterns: '*.yaml,*.yml'
+  register: kube_prometheus_setup_files
+
+- name: Apply kube-prometheus setup manifests.
   k8s:
-    definition: "{{ lookup('file', 'files/bundle.yaml') }}"
-    state: present
+    src: "{{ item }}"
+  loop: "{{ kube_prometheus_setup_files.files | sort(attribute='path') | map(attribute='path') | list }}"
+
+- name: Wait for servicemonitors to be running.
+  k8s_info:
+    kind: servicemonitors
+  register: servicemonitors_info
+  until: servicemonitors_info['resources'] is defined
+  retries: 10
+  delay: 5
+
+- name: Find all the manifests in the manifests directory.
+  find:
+    paths: ~/kube-prometheus/manifests
+    file_type: file
+    patterns: '*.yaml,*.yml'
+  register: kube_prometheus_files
+
+- name: Apply kube-prometheus manifests.
+  k8s:
+    src: "{{ item }}"
+  loop: "{{ kube_prometheus_files.files | sort(attribute='path') | map(attribute='path') | list }}"

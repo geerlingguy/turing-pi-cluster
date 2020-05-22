@@ -2,6 +2,8 @@
 
 This role installs Prometheus' [Node exporter](https://github.com/prometheus/node_exporter) on Linux hosts, and configures a systemd unit file so the service can run and be controlled by systemd.
 
+**Note**: If you're running in a Kubernetes cluster, you could run Node exporter as a DaemonSet in the cluster, instead of installing it on individual nodes.
+
 ## Variables
 
 See `defaults/main.yml`:

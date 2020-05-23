@@ -1,0 +1,31 @@
+# TODO: Needs a valid configuration file.
+# See: https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/alerting.md#alerting
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: alertmanager
+  namespace: default
+spec:
+  replicas: 3
+  resources:
+    requests:
+      memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - name: web
+    nodePort: 30903
+    port: 9093
+    protocol: TCP
+    targetPort: web
+  selector:
+    alertmanager: alertmanager

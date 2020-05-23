@@ -1,14 +1,13 @@
 ---
-- name: Set up cluster-wide configuration.
-  hosts: k3s_cluster
-  become: true
+# - name: Set up cluster-wide configuration.
+#   hosts: k3s_cluster
+#   become: true
 
-  roles:
-    - role: node_exporter
-      tags: ['monitoring', 'node_exporter']
+#   tasks: []
 
-- name: Deploy Kubernetes resources.
+- name: Deploy Kubernetes resources via master node.
   hosts: master
+  gather_facts: false
 
   environment:
     # The location of the kubeconfig file on the master.
@@ -20,18 +19,13 @@
         name: python3-setuptools
         state: present
       become: true
-      tags: ['always']
 
     - name: Ensure openshift Python library is installed.
       pip:
         name: openshift
         state: present
       become: true
-      tags: ['always']
 
   roles:
     - role: prometheus_kubernetes
       tags: ['monitoring', 'prometheus']
-
-    - role: grafana_kubernetes
-      tags: ['monitoring', 'grafana']

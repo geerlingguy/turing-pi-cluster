@@ -1,5 +1,0 @@
----
-- name: Deploy Grafana.
-  k8s:
-    definition: "{{ lookup('file', 'files/grafana.yaml') }}"
-    state: present

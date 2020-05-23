@@ -1,10 +1,24 @@
 ---
-- name: Deploy Prometheus Operator.
-  k8s:
-    definition: "{{ lookup('file', 'files/prometheus-operator.yaml') }}"
-    state: present
+- name: Clone the kube-prometheus project.
+  git:
+    repo: https://github.com/coreos/kube-prometheus.git
+    dest: ~/kube-prometheus
+    version: "{{ kube_prometheus_version }}"
+  become: false
 
-- name: Wait for the servicemonitors CRD to be available.
+- name: Find all the manifests in the manifests/setup directory.
+  find:
+    paths: ~/kube-prometheus/manifests/setup
+    file_type: file
+    patterns: '*.yaml,*.yml'
+  register: kube_prometheus_setup_files
+
+- name: Apply kube-prometheus setup manifests.
+  k8s:
+    src: "{{ item }}"
+  loop: "{{ kube_prometheus_setup_files.files | sort(attribute='path') | map(attribute='path') | list }}"
+
+- name: Wait for servicemonitors to be running.
   k8s_info:
     kind: servicemonitors
   register: servicemonitors_info
@@ -12,13 +26,14 @@
   retries: 10
   delay: 5
 
-- name: Deploy Monitoring Resources.
+- name: Find all the manifests in the manifests directory.
+  find:
+    paths: ~/kube-prometheus/manifests
+    file_type: file
+    patterns: '*.yaml,*.yml'
+  register: kube_prometheus_files
+
+- name: Apply kube-prometheus manifests.
   k8s:
-    definition: "{{ lookup('file', 'files/' + item) }}"
-    state: present
-  loop:
-    - node-exporter.yaml
-    - prometheus.yaml
-    # - alertmanager.yaml
-    - grafana.yaml
-  tags: ['dothis']
+    src: "{{ item }}"
+  loop: "{{ kube_prometheus_files.files | sort(attribute='path') | map(attribute='path') | list }}"

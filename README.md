@@ -31,7 +31,41 @@ Then, you can deploy _all_ the applications configured in this repository with t
 Once that's done, there will be a huge variety of stuff running on your cluster, including:
 
   - Prometheus, AlertManager, and Grafana - for deep insights and cluster monitoring.
-  - TODO: Add more stuff!
+  - Drupal - a popular open-source CMS deployed with the [Drupal Operator](https://github.com/geerlingguy/drupal-operator).
+
+## Resetting the cluster
+
+Especially when you're starting out with Kubernetes, but even if you're an expert, you'll likely want to blow away all the changes you've made in a cluster and start fresh. If you made a mistake, or something broke terribly, that problem goes away with the cluster. Or, if you want to make sure you've automated the entire cluster build properly, it's best practice to blow up the cluster and rebuild it from time to time.
+
+Regardless of the reason, here's how to quickly wipe the cluster clean (without re-flashing all the Raspberry Pis from scratch):
+
+  1. In the `k3s-ansible` repository directory (which you used to set up the cluster), run:
+
+     ```
+     ansible-playbook -i inventory/hosts.ini reset.yml
+     ```
+
+     This command will likely have a few failures relating to files that can't be cleaned up until after a reboot.
+
+  2. Reboot the Raspberry Pis (in the same directory):
+
+     ```
+     ansible -i inventory/hosts.ini all -m reboot -b
+     ```
+
+  3. Run the reset playbook a second time, to clean up the stragglers:
+
+     ```
+     ansible-playbook -i inventory/hosts.ini reset.yml
+     ```
+
+  4. Re-install K3s on the cluster:
+
+     ```
+     ansible-playbook -i inventory/hosts.ini site.yml
+     ```
+
+Now you can go back to the steps above under 'Usage' to set up applications inside the cluster!
 
 ## Author
 

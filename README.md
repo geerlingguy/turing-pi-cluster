@@ -9,6 +9,8 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
   - **Episode 3**: [Installing K3s on the Turing Pi](https://www.youtube.com/watch?v=N4bfNefjBSw) ([blog post](https://www.jeffgeerling.com/blog/2020/pi-cluster-episode-3-installing-k3s-kubernetes-on-turing-pi))
   - **Episode 4**: Coming soon!
 
+You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts the Drupal website [www.pidramble.com](https://www.pidramble.com).
+
 ## Usage
 
 First, you need to make sure you have K3s running on your Pi cluster. Instructions for doing so are in Episodes 2 and 3 (linked above).

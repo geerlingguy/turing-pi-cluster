@@ -1,6 +1,6 @@
 # Turing Pi Cluster - 7-node K3s Raspberry Pi Cluster
 
-<p align="center"><a href="https://www.youtube.com/watch?v=kgVz4-SEhbE"><img src="https://raw.githubusercontent.com/geerlingguy/turing-pi-cluster/master/images/turing-pi-cluster-hero.jpg" width="500" height="auto" alt="Turing Pi - Raspberry Pi Compute Module Cluster" /></a></p>
+<p align="center"><a href="https://www.youtube.com/watch?v=kgVz4-SEhbE"><img src="../blob/master/images/turing-pi-cluster-hero.jpg?raw=true" width="500" height="auto" alt="Turing Pi - Raspberry Pi Compute Module Cluster" /></a></p>
 
 This repository is a companion to a YouTube series by Jeff Geerling in 2020:
 

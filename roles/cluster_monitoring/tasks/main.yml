@@ -1,15 +1,16 @@
 ---
-# TODO: Use stat module to see if file already in there.
-- set_fact:
-    repo_already_cloned: true
+- name: Check if cluster-monitoring repo already exists.
+  stat:
+    path: ~/cluster-monitoring/vars.jsonnet
+  register: vars_file_exists
 
-- block:
+- name: Retrieve and template cluster-monitoring manifests.
+  block:
     - name: Clone the cluster-monitoring project.
       git:
         repo: https://github.com/carlosedp/cluster-monitoring.git
         dest: ~/cluster-monitoring
         version: "{{ cluster_monitoring_version }}"
-        # TODO: This is required for idempotence currently.
         force: yes
       become: false
 
@@ -25,13 +26,13 @@
         target: vendor
       become: false
 
-    - name: Run 'make'.
+    - name: Run 'make' to generate all the K8s manifests.
       make:
         chdir: ~/cluster-monitoring
       become: false
-  when:
-    - cluster_monitoring_update_repo | bool
-    - repo_already_cloned | bool
+  when: >
+    not vars_file_exists.stat.exists
+    or cluster_monitoring_update_repo | bool
 
 - name: Find all the manifests in the manifests/setup directory.
   find:

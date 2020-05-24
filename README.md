@@ -26,7 +26,10 @@ Then, you can deploy _all_ the applications configured in this repository with t
      ansible-playbook main.yml
      ```
 
-TODO: Profit!
+Once that's done, there will be a huge variety of stuff running on your cluster, including:
+
+  - Prometheus, AlertManager, and Grafana - for deep insights and cluster monitoring.
+  - TODO: Add more stuff!
 
 ## Author
 

@@ -30,7 +30,7 @@
         chdir: ~/cluster-monitoring
       become: false
   when:
-    - prometheus_kubernetes_update_repo | bool
+    - cluster_monitoring_update_repo | bool
     - repo_already_cloned | bool
 
 - name: Find all the manifests in the manifests/setup directory.

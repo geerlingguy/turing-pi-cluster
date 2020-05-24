@@ -8,7 +8,11 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
 
 ## Usage
 
-First, you need to make sure you have K3s running on your Pi cluster. Instructions for doing so are in Episodes 2 and 3 (linked above). Then, you can deploy _all_ the applications configured in this repository with the `main.yml` playbook:
+First, you need to make sure you have K3s running on your Pi cluster. Instructions for doing so are in Episodes 2 and 3 (linked above).
+
+Also make sure you have `extra_server_args: "--node-taint k3s-controlplane=true:NoExecute"` in your K3s `group_vars/all.yml`, so pods are not scheduled on the master node.
+
+Then, you can deploy _all_ the applications configured in this repository with the `main.yml` playbook:
 
   1. Make sure you have [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) installed.
   2. Make sure you have the Kubernetes config file for the Turing Pi cluster available locally in the path `~/.kube/config-turing-pi`.

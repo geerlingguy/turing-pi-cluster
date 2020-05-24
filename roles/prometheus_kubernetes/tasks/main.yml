@@ -1,39 +1,47 @@
 ---
-- name: Clone the kube-prometheus project.
-  git:
-    repo: https://github.com/coreos/kube-prometheus.git
-    dest: ~/kube-prometheus
-    version: "{{ kube_prometheus_version }}"
-  become: false
+# TODO: Use stat module to see if file already in there.
+- set_fact:
+    repo_already_cloned: true
+
+- block:
+    - name: Clone the cluster-monitoring project.
+      git:
+        repo: https://github.com/carlosedp/cluster-monitoring.git
+        dest: ~/cluster-monitoring
+        version: "{{ cluster_monitoring_version }}"
+        # TODO: This is required for idempotence currently.
+        force: yes
+      become: false
+
+    - name: Place our templated vars.jsonnet file.
+      template:
+        src: vars.jsonnet.j2
+        dest: ~/cluster-monitoring/vars.jsonnet
+      become: false
+
+    - name: Run 'vendor' cluster-monitoring target.
+      make:
+        chdir: ~/cluster-monitoring
+        target: vendor
+      become: false
+
+    - name: Run 'make'.
+      make:
+        chdir: ~/cluster-monitoring
+      become: false
+  when:
+    - prometheus_kubernetes_update_repo | bool
+    - repo_already_cloned | bool
 
 - name: Find all the manifests in the manifests/setup directory.
   find:
-    paths: ~/kube-prometheus/manifests/setup
+    paths: ~/cluster-monitoring/manifests
     file_type: file
     patterns: '*.yaml,*.yml'
-  register: kube_prometheus_setup_files
+  register: cluster_monitoring_setup_files
 
-- name: Apply kube-prometheus setup manifests.
+- name: Apply cluster-monitoring setup manifests.
   k8s:
     src: "{{ item }}"
-  loop: "{{ kube_prometheus_setup_files.files | sort(attribute='path') | map(attribute='path') | list }}"
-
-- name: Wait for servicemonitors to be running.
-  k8s_info:
-    kind: servicemonitors
-  register: servicemonitors_info
-  until: servicemonitors_info['resources'] is defined
-  retries: 10
-  delay: 5
-
-- name: Find all the manifests in the manifests directory.
-  find:
-    paths: ~/kube-prometheus/manifests
-    file_type: file
-    patterns: '*.yaml,*.yml'
-  register: kube_prometheus_files
-
-- name: Apply kube-prometheus manifests.
-  k8s:
-    src: "{{ item }}"
-  loop: "{{ kube_prometheus_files.files | sort(attribute='path') | map(attribute='path') | list }}"
+    state: present
+  loop: "{{ cluster_monitoring_setup_files.files | sort(attribute='path') | map(attribute='path') | list }}"

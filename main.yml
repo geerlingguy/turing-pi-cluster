@@ -12,11 +12,16 @@
   environment:
     # The location of the kubeconfig file on the master.
     K8S_AUTH_KUBECONFIG: ~/.kube/config
+    PATH: "~/go/bin:{{ ansible_env.PATH }}"
 
   pre_tasks:
     - name: Ensure required dependencies are installed.
       package:
-        name: python3-setuptools
+        name:
+          - python3-setuptools
+          - build-essential
+          - golang
+          - git
         state: present
       become: true
 

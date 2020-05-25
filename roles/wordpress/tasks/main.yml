@@ -1,0 +1,15 @@
+---
+- name: Create wordpress namespace.
+  k8s:
+    name: wordpress
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Apply wordpress manifests.
+  k8s:
+    definition: "{{ lookup('template', 'templates/' + item ) }}"
+    state: present
+  loop:
+    - mariadb.yml
+    - wordpress.yml

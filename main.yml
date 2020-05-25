@@ -37,3 +37,6 @@
 
     - role: drupal
       tags: ['drupal']
+
+    - role: wordpress
+      tags: ['wordpress']

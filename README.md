@@ -35,7 +35,8 @@ Once that's done, there will be a huge variety of stuff running on your cluster:
 | Prometheus | http://prometheus.10.0.100.74.nip.io/ | N/A |
 | AlertManager | http://alertmanager.10.0.100.74.nip.io/ | N/A |
 | Grafana | http://grafana.10.0.100.74.nip.io/ | Default login is `admin`/`admin` |
-| Drupal | http://drupal.10.0.100.74.nip.io | N/A |
+| Drupal | http://drupal.10.0.100.74.nip.io/ | N/A |
+| Wordpress | http://wordpress.10.0.100.74.nip.io/ | N/A |
 
 ## Resetting the cluster
 

@@ -12,24 +12,22 @@
         dest: ~/cluster-monitoring
         version: "{{ cluster_monitoring_version }}"
         force: yes
-      become: false
 
     - name: Place our templated vars.jsonnet file.
       template:
         src: vars.jsonnet.j2
         dest: ~/cluster-monitoring/vars.jsonnet
-      become: false
 
     - name: Run 'vendor' cluster-monitoring target.
       make:
         chdir: ~/cluster-monitoring
         target: vendor
-      become: false
 
     - name: Run 'make' to generate all the K8s manifests.
       make:
         chdir: ~/cluster-monitoring
-      become: false
+
+  become: false
   when: >
     not vars_file_exists.stat.exists
     or cluster_monitoring_update_repo | bool

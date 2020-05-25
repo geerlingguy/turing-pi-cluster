@@ -32,4 +32,8 @@
         eula: true
         version: '1.15.2'
         Difficulty: easy
+        motd: "Welcome to Minecraft on Turing Pi!"
+        # These settings should help the server run better on underpowered Pis.
+        maxWorldSize: 5000
+        viewDistance: 6
   register: helm_minecraft_install

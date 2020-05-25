@@ -34,3 +34,6 @@
   roles:
     - role: cluster_monitoring
       tags: ['monitoring', 'prometheus']
+
+    - role: drupal
+      tags: ['drupal']

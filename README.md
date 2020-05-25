@@ -28,14 +28,18 @@ Then, you can deploy _all_ the applications configured in this repository with t
      ansible-playbook main.yml
      ```
 
-Once that's done, there will be a huge variety of stuff running on your cluster, including:
+Once that's done, there will be a huge variety of stuff running on your cluster:
 
-  - Prometheus, AlertManager, and Grafana - for deep insights and cluster monitoring.
-  - Drupal - a popular open-source CMS deployed with the [Drupal Operator](https://github.com/geerlingguy/drupal-operator).
+| Software | Address | Notes |
+| -------- | ------- | ------- |
+| Prometheus | http://prometheus.10.0.100.74.nip.io/ | N/A |
+| AlertManager | http://alertmanager.10.0.100.74.nip.io/ | N/A |
+| Grafana | http://grafana.10.0.100.74.nip.io/ | Default login is `admin`/`admin` |
+| Drupal | http://drupal.10.0.100.74.nip.io | N/A |
 
 ## Resetting the cluster
 
-Especially when you're starting out with Kubernetes, but even if you're an expert, you'll likely want to blow away all the changes you've made in a cluster and start fresh. If you made a mistake, or something broke terribly, that problem goes away with the cluster. Or, if you want to make sure you've automated the entire cluster build properly, it's best practice to blow up the cluster and rebuild it from time to time.
+You'll likely want to blow away all the changes you've made in a cluster and start fresh every now and then. If you made a mistake, or something broke terribly, that problem goes away. Or, if you want to make sure you've automated the entire cluster build properly, it's best practice to rebuild a cluster frequently.
 
 Regardless of the reason, here's how to quickly wipe the cluster clean (without re-flashing all the Raspberry Pis from scratch):
 
@@ -66,6 +70,8 @@ Regardless of the reason, here's how to quickly wipe the cluster clean (without 
      ```
 
 Now you can go back to the steps above under 'Usage' to set up applications inside the cluster!
+
+> Important note: Any files that were downloaded for this repository, like the monitoring repository, still exist in the `pirate` user's home directory. For a more complete reset, also delete all those files and directories. Or to go thermonuclear, re-flash all the Pi's eMMC or microSD cards.
 
 ## Author
 

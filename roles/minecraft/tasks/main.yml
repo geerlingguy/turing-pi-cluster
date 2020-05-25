@@ -1,0 +1,39 @@
+---
+- name: Create minecraft namespace.
+  k8s:
+    name: minecraft
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Add stable chart repo.
+  helm_repository:
+    name: stable
+    repo_url: "https://kubernetes-charts.storage.googleapis.com"
+
+- name: Deploy Minecraft Helm chart.
+  helm:
+    name: minecraft
+    chart_ref: stable/minecraft
+    chart_version: '1.2.2'
+    release_namespace: minecraft
+    state: present
+    values:
+      imageTag: armv7
+      livenessProbe:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 180
+      readinessProbe:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 180
+      minecraftServer:
+        eula: true
+        version: '1.15.2'
+        Difficulty: easy
+        motd: "Welcome to Minecraft on Turing Pi!"
+        # These settings should help the server run better on underpowered Pis.
+        maxWorldSize: 5000
+        viewDistance: 6
+  register: helm_minecraft_install

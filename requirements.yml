@@ -1,0 +1,8 @@
+---
+roles:
+  - name: geerlingguy.helm
+    version: 1.0.0
+
+collections:
+  - name: community.kubernetes
+    version: 0.11.0

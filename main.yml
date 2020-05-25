@@ -9,6 +9,12 @@
   hosts: master
   gather_facts: false
 
+  collections:
+    - community.kubernetes
+
+  vars:
+    helm_arch: arm
+
   environment:
     # The location of the kubeconfig file on the master.
     K8S_AUTH_KUBECONFIG: ~/.kube/config
@@ -40,3 +46,6 @@
 
     - role: wordpress
       tags: ['wordpress']
+
+    - role: minecraft
+      tags: ['minecraft']

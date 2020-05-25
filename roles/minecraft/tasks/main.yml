@@ -20,7 +20,16 @@
     state: present
     values:
       imageTag: armv7
+      livenessProbe:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 180
+      readinessProbe:
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        failureThreshold: 180
       minecraftServer:
         eula: true
+        version: '1.15.2'
         Difficulty: easy
   register: helm_minecraft_install

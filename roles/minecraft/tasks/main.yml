@@ -1,0 +1,26 @@
+---
+- name: Create minecraft namespace.
+  k8s:
+    name: minecraft
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Add stable chart repo.
+  helm_repository:
+    name: stable
+    repo_url: "https://kubernetes-charts.storage.googleapis.com"
+
+- name: Deploy Minecraft Helm chart.
+  helm:
+    name: minecraft
+    chart_ref: stable/minecraft
+    chart_version: '1.2.2'
+    release_namespace: minecraft
+    state: present
+    values:
+      imageTag: armv7
+      minecraftServer:
+        eula: true
+        Difficulty: easy
+  register: helm_minecraft_install

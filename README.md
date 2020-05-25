@@ -20,15 +20,24 @@ Also make sure you have `extra_server_args: "--node-taint k3s-controlplane=true:
 Then, you can deploy _all_ the applications configured in this repository with the `main.yml` playbook:
 
   1. Make sure you have [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) installed.
-  2. Make sure you have the Kubernetes config file for the Turing Pi cluster available locally in the path `~/.kube/config-turing-pi`.
-  3. Copy the `example.hosts.ini` inventory file to `hosts.ini`. Make sure it has the `master` and `node`s configured correctly.
-  4. Run the playbook:
+  2. Install Ansible requirements:
+
+     ```
+     ansible-galaxy role install -r requirements.yml
+     ansible-galaxy collection install -r requirements.yml
+     ```
+
+     These commands can be consolidated into one `ansible-galaxy install` command once Ansible 2.10 is released.
+
+  3. Make sure you have the Kubernetes config file for the Turing Pi cluster available locally in the path `~/.kube/config-turing-pi`.
+  4. Copy the `example.hosts.ini` inventory file to `hosts.ini`. Make sure it has the `master` and `node`s configured correctly.
+  5. Run the playbook:
 
      ```
      ansible-playbook main.yml
      ```
 
-Once that's done, there will be a huge variety of stuff running on your cluster:
+Once that's done, there will be variety of applications running on your cluster:
 
 | Software | Address | Notes |
 | -------- | ------- | ------- |
@@ -37,6 +46,7 @@ Once that's done, there will be a huge variety of stuff running on your cluster:
 | Grafana | http://grafana.10.0.100.74.nip.io/ | Default login is `admin`/`admin` |
 | Drupal | http://drupal.10.0.100.74.nip.io/ | N/A |
 | Wordpress | http://wordpress.10.0.100.74.nip.io/ | N/A |
+| Minecraft | (`kubectl get service -n minecraft`) | See EULA in [Minecraft chart repo](https://github.com/helm/charts/tree/master/stable/minecraft) |
 
 ## Resetting the cluster
 

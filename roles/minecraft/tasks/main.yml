@@ -36,4 +36,3 @@
         # These settings should help the server run better on underpowered Pis.
         maxWorldSize: 5000
         viewDistance: 6
-  register: helm_minecraft_install

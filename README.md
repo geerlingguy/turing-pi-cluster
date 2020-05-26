@@ -47,6 +47,7 @@ Once that's done, there will be variety of applications running on your cluster:
 | Drupal | http://drupal.10.0.100.74.nip.io/ | N/A |
 | Wordpress | http://wordpress.10.0.100.74.nip.io/ | N/A |
 | Minecraft | (`kubectl get service -n minecraft`) | See EULA in [Minecraft chart repo](https://github.com/helm/charts/tree/master/stable/minecraft) |
+| Pi-hole | http://pi.hole/ | See [pihole role README](roles/pihole/README.md) |
 
 ## Caveats
 

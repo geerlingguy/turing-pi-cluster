@@ -1,0 +1,40 @@
+---
+- name: Create pihole namespace.
+  k8s:
+    name: pihole
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Add mojo2600 chart repo.
+  helm_repository:
+    name: mojo2600
+    repo_url: "https://mojo2600.github.io/pihole-kubernetes/"
+
+- name: Deploy pihole Helm chart.
+  helm:
+    name: pihole
+    chart_ref: mojo2600/pihole
+    chart_version: '1.7.6'
+    release_namespace: pihole
+    state: present
+    values:
+      persistentVolumeClaim:
+        enabled: true
+      ingress:
+        enabled: true
+      serviceTCP:
+        loadBalancerIP: '10.0.100.99'
+        type: LoadBalancer
+      serviceUDP:
+        loadBalancerIP: '10.0.100.99'
+        type: LoadBalancer
+      resources:
+        limits:
+          cpu: 200m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      # If using in the real world, set up admin.existingSecret instead.
+      adminPassword: admin

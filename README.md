@@ -47,6 +47,7 @@ Once that's done, there will be variety of applications running on your cluster:
 | Drupal | http://drupal.10.0.100.74.nip.io/ | N/A |
 | Wordpress | http://wordpress.10.0.100.74.nip.io/ | N/A |
 | Minecraft | (`kubectl get service -n minecraft`) | See EULA in [Minecraft chart repo](https://github.com/helm/charts/tree/master/stable/minecraft) |
+| Blocky | TODO | See blocky role [README](roles/blocky/README.md) |
 
 ## Caveats
 

@@ -49,3 +49,6 @@
 
     - role: minecraft
       tags: ['minecraft']
+
+    - role: blocky
+      tags: ['blocky']

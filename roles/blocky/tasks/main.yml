@@ -1,0 +1,33 @@
+---
+- name: Create blocky namespace.
+  k8s:
+    name: blocky
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Add billimek chart repo.
+  helm_repository:
+    name: billimek
+    repo_url: "https://billimek.com/billimek-charts/"
+
+- name: Deploy blocky Helm chart.
+  helm:
+    name: blocky
+    chart_ref: billimek/blocky
+    chart_version: '3.1.1'
+    release_namespace: blocky
+    state: present
+    values:
+      config:
+        prometheus:
+          enable: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      service:
+        type: LoadBalancer

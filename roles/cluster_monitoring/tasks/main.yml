@@ -34,7 +34,7 @@
 
 - name: Find all the manifests in the manifests/setup directory.
   find:
-    paths: ~/cluster-monitoring/manifests
+    paths: ~/cluster-monitoring/manifests/setup
     file_type: file
     patterns: '*.yaml,*.yml'
   register: cluster_monitoring_setup_files
@@ -44,3 +44,16 @@
     src: "{{ item }}"
     state: present
   loop: "{{ cluster_monitoring_setup_files.files | sort(attribute='path') | map(attribute='path') | list }}"
+
+- name: Find all the manifests in the manifests directory.
+  find:
+    paths: ~/cluster-monitoring/manifests
+    file_type: file
+    patterns: '*.yaml,*.yml'
+  register: cluster_monitoring_files
+
+- name: Apply cluster-monitoring manifests.
+  k8s:
+    src: "{{ item }}"
+    state: present
+  loop: "{{ cluster_monitoring_files.files | sort(attribute='path') | map(attribute='path') | list }}"

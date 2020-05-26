@@ -48,6 +48,22 @@ Once that's done, there will be variety of applications running on your cluster:
 | Wordpress | http://wordpress.10.0.100.74.nip.io/ | N/A |
 | Minecraft | (`kubectl get service -n minecraft`) | See EULA in [Minecraft chart repo](https://github.com/helm/charts/tree/master/stable/minecraft) |
 
+## Caveats
+
+They are a'plenty.
+
+First of all, the configurations in this repository were built for local demonstration purposes. There are some things that are insecure (like storing some database passwords in plain text), and other things that are just plain crazy (like trying to run all the above things on one tiny Pi-based cluster!).
+
+There are a few architectural decisions that were made that are great for 'day one' setup, but if you tried to flex K3s' muscle and drop/replace nodes while the cluster is running, you'd likely start running into some, shall we say, 'fun' problems.
+
+For example, the MariaDB PVCs are tied to the local node on which they were first deployed, and if you do something that results in the MariaDB Deployment to change nodes for the deployed Pod... you may run into warnings like `FailedScheduling: 3 node(s) had volume node affinity conflict.`
+
+Therefore, if you want to use this project as a base, and are planning on doing anything more than a local demo cluster, you are responsible for making changes to support a more production-ready setup, with better security and better configuration of volumes and multi-pod scalability.
+
+To do these things _correctly_ with Kubernetes takes a lot of work. It's usually _very_ easy—maybe deceptively easy—to get something working. It's harder to get it working reliably in an automated fashion when rebuilding the cluster from scratch (that's about the level where this repository is). And harder still is getting it working reliably with easy maintenance, fault-tolerance, and scalability.
+
+Kubernetes is no substitute for a thorough knowledge of system architecture and engineering!
+
 ## Resetting the cluster
 
 You'll likely want to blow away all the changes you've made in a cluster and start fresh every now and then. If you made a mistake, or something broke terribly, that problem goes away. Or, if you want to make sure you've automated the entire cluster build properly, it's best practice to rebuild a cluster frequently.

@@ -47,10 +47,10 @@ spec:
           resources:
             limits:
               cpu: '2'
-              memory: '768Mi'
+              memory: '512Mi'
             requests:
               cpu: '500m'
-              memory: '512Mi'
+              memory: '256Mi'
       volumes:
         - name: database
           persistentVolumeClaim:

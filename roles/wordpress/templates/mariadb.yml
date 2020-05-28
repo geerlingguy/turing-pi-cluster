@@ -46,31 +46,31 @@ spec:
         tier: mariadb
     spec:
       containers:
-      - image: tobi312/rpi-mariadb:10.3
-        name: mariadb
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mariadb-pass
-              key: password
-        ports:
-        - containerPort: 3306
+        - image: tobi312/rpi-mariadb:10.3
           name: mariadb
-        volumeMounts:
-        - name: mariadb-persistent-storage
-          mountPath: /var/lib/mariadb
-        resources:
-          limits:
-            cpu: '1'
-            memory: '512Mi'
-          requests:
-            cpu: '500m'
-            memory: '256Mi'
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-pass
+                  key: password
+          ports:
+            - containerPort: 3306
+              name: mariadb
+          volumeMounts:
+            - name: mariadb-persistent-storage
+              mountPath: /var/lib/mariadb
+          resources:
+            limits:
+              cpu: '1'
+              memory: '512Mi'
+            requests:
+              cpu: '500m'
+              memory: '256Mi'
       volumes:
-      - name: mariadb-persistent-storage
-        persistentVolumeClaim:
-          claimName: mariadb-pv-claim
+        - name: mariadb-persistent-storage
+          persistentVolumeClaim:
+            claimName: mariadb-pv-claim
 
 ---
 apiVersion: v1

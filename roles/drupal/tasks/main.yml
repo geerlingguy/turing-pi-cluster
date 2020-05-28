@@ -8,7 +8,7 @@
 
 - name: Apply drupal manifests.
   k8s:
-    definition: "{{ lookup('template', 'files/' + item ) }}"
+    definition: "{{ lookup('template', 'templates/' + item ) }}"
     state: present
   loop:
     - mariadb.yml

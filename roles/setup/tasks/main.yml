@@ -1,0 +1,21 @@
+---
+- name: Ensure apt caches are up to date.
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Ensure required dependencies are installed.
+  package:
+    name:
+      - python3-setuptools
+      - build-essential
+      - golang
+      - git
+    state: present
+  become: true
+
+- name: Ensure openshift Python library is installed.
+  pip:
+    name: openshift
+    state: present
+  become: true

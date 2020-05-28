@@ -1,2 +1,11 @@
 ---
 ansible_user: pirate
+helm_arch: arm
+
+# Turing Pi.
+# ingress_server_ip: 10.0.100.74
+# load_balancer_server_ip: 10.0.100.99
+
+# Dramble.
+ingress_server_ip: 10.0.100.83
+load_balancer_server_ip: 10.0.100.131

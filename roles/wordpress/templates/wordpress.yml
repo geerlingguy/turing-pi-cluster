@@ -87,7 +87,7 @@ metadata:
   namespace: wordpress
 spec:
   rules:
-    - host: wordpress.10.0.100.74.nip.io
+    - host: wordpress.{{ ingress_server_ip }}.nip.io
       http:
         paths:
           - path: /

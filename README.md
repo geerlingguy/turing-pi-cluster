@@ -9,7 +9,7 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
   - **Episode 3**: [Installing K3s on the Turing Pi](https://www.youtube.com/watch?v=N4bfNefjBSw) ([blog post](https://www.jeffgeerling.com/blog/2020/pi-cluster-episode-3-installing-k3s-kubernetes-on-turing-pi))
   - **Episode 4**: Coming soon!
 
-You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts the Drupal website [www.pidramble.com](https://www.pidramble.com).
+You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts [www.pidramble.com](https://www.pidramble.com).
 
 ## Usage
 
@@ -29,8 +29,8 @@ Then, you can deploy _all_ the applications configured in this repository with t
 
      These commands can be consolidated into one `ansible-galaxy install` command once Ansible 2.10 is released.
 
-  3. Make sure you have the Kubernetes config file for the Turing Pi cluster available locally in the path `~/.kube/config-turing-pi`.
-  4. Copy the `example.hosts.ini` inventory file to `hosts.ini`. Make sure it has the `master` and `node`s configured correctly.
+  3. Copy the `example.hosts.ini` inventory file to `hosts.ini`. Make sure it has the `master` and `node`s configured correctly.
+  4. Edit the `ingress_server_ip` and `load_balancer_server_ip` in `group_vars/all.yml` and set them each to an IP address of one of the nodes.
   5. Run the playbook:
 
      ```
@@ -103,4 +103,4 @@ Now you can go back to the steps above under 'Usage' to set up applications insi
 
 ## Author
 
-The repository was created by [Jeff Geerling](https://www.jeffgeerling.com), who writes [Ansible for DevOps](https://www.ansiblefordevops.com) and [Ansible for Kubernetes](https://www.ansibleforkubernetes.com).
+The repository was created in 2020 by [Jeff Geerling](https://www.jeffgeerling.com), who writes [Ansible for DevOps](https://www.ansiblefordevops.com) and [Ansible for Kubernetes](https://www.ansibleforkubernetes.com).

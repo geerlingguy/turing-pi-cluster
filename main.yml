@@ -12,32 +12,15 @@
   collections:
     - community.kubernetes
 
-  vars:
-    helm_arch: arm
-
   environment:
     # The location of the kubeconfig file on the master.
     K8S_AUTH_KUBECONFIG: ~/.kube/config
     PATH: "~/go/bin:{{ ansible_env.PATH }}"
 
-  pre_tasks:
-    - name: Ensure required dependencies are installed.
-      package:
-        name:
-          - python3-setuptools
-          - build-essential
-          - golang
-          - git
-        state: present
-      become: true
-
-    - name: Ensure openshift Python library is installed.
-      pip:
-        name: openshift
-        state: present
-      become: true
-
   roles:
+    - role: setup
+      tags: ['setup']
+
     - role: cluster_monitoring
       tags: ['monitoring', 'prometheus']
 
@@ -52,3 +35,6 @@
 
     - role: pihole
       tags: ['pihole']
+
+    - role: status
+      tags: ['status', 'debug']

@@ -1,0 +1,19 @@
+---
+- name: Get Ingress records from monitoring namespace.
+  k8s_info:
+    api_version: extensions/v1beta1
+    kind: Ingress
+    namespace: monitoring
+  register: monitoring_ingress
+
+- name: Print relevant addresses.
+  debug:
+    msg:
+      - "http://{{ monitoring_ingress['resources'][0]['spec']['rules'][0]['host'] }}/"
+      - "http://{{ monitoring_ingress['resources'][1]['spec']['rules'][0]['host'] }}/"
+      - "http://{{ monitoring_ingress['resources'][2]['spec']['rules'][0]['host'] }}/"
+      - "Drupal: http://drupal.{{ ingress_server_ip }}.nip.io/"
+      - "Wordpress: http://wordpress.{{ ingress_server_ip }}.nip.io/"
+      - "Minecraft: (`kubectl get service -n minecraft`)"
+      - "Pi-hole: http://pi.hole/ (add record for {{ load_balancer_server_ip }} to /etc/hosts)"
+  tags: ['debug']

@@ -106,7 +106,7 @@ metadata:
   namespace: drupal
 spec:
   rules:
-    - host: drupal.10.0.100.74.nip.io
+    - host: drupal.{{ ingress_server_ip }}.nip.io
       http:
         paths:
           - path: /

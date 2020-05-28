@@ -24,10 +24,10 @@
       ingress:
         enabled: true
       serviceTCP:
-        loadBalancerIP: '10.0.100.99'
+        loadBalancerIP: '{{ load_balancer_server_ip }}'
         type: LoadBalancer
       serviceUDP:
-        loadBalancerIP: '10.0.100.99'
+        loadBalancerIP: '{{ load_balancer_server_ip }}'
         type: LoadBalancer
       resources:
         limits:

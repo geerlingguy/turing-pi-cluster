@@ -1,7 +1,8 @@
 ---
-ansible_user: pirate
+# Set to 'pi' for Raspberry Pi OS, or 'pirate' for HypriotOS.
+ansible_user: pi
 
-# For a 32-bit OS, set to 'arm'. For 64-bit OS, set to 'arm64'.
+# Set to 'arm64' for a 64-bit OS, or 'arm' for 32-bit.
 helm_arch: arm64
 
 # Turing Pi.

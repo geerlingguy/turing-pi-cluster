@@ -99,7 +99,7 @@ Regardless of the reason, here's how to quickly wipe the cluster clean (without 
 
 Now you can go back to the steps above under 'Usage' to set up applications inside the cluster!
 
-> Important note: Any files that were downloaded for this repository, like the monitoring repository, still exist in the `pirate` user's home directory. For a more complete reset, also delete all those files and directories. Or to go thermonuclear, re-flash all the Pi's eMMC or microSD cards.
+> Important note: Any files that were downloaded for this repository, like the monitoring repository, still exist in the `pirate` (HypriotOS) or `pi` (Raspberry Pi OS) user's home directory. For a more complete reset, also delete all those files and directories. Or to go thermonuclear, re-flash all the Pi's eMMC or microSD cards.
 
 ## Author
 

@@ -1,6 +1,9 @@
 ---
-ansible_user: pirate
-helm_arch: arm
+# Set to 'pi' for Raspberry Pi OS, or 'pirate' for HypriotOS.
+ansible_user: pi
+
+# Set to 'arm64' for a 64-bit OS, or 'arm' for 32-bit.
+helm_arch: arm64
 
 # Turing Pi.
 # ingress_server_ip: 10.0.100.74

@@ -11,11 +11,24 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
 
 You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts [www.pidramble.com](https://www.pidramble.com).
 
+## Compatibility
+
+This cluster configuration has been tested with the following Raspberry Pi and OS combinations:
+
+  - Raspberry Pi 4 model B and HypriotOS
+  - Raspberry Pi 4 model B and Raspberry Pi OS (32-bit)
+  - Raspberry Pi 4 model B and Raspberry Pi OS (64-bit)
+  - Raspberry Pi Compute Module 3+ and HypriotOS
+
+Other models of Raspberry Pi and Compute Modules may or may not work, but the main thing you need is a cluster with at least 7 GB of RAM and at least 12 available CPU cores (every current Pi has 4 CPU cores), otherwise not all of the software will be able to run well.
+
+This configuration will _definitely not_ run on the Pi Zero, or on Pis older than the Raspberry Pi 2 model B.
+
 ## Usage
 
 First, you need to make sure you have K3s running on your Pi cluster. Instructions for doing so are in Episodes 2 and 3 (linked above).
 
-Also make sure you have `extra_server_args: "--node-taint k3s-controlplane=true:NoExecute"` in your K3s `group_vars/all.yml`, so pods are not scheduled on the master node.
+When you run the K3s Ansible playbook, make sure you have `extra_server_args: "--node-taint k3s-controlplane=true:NoExecute"` in your K3s `group_vars/all.yml`, so pods are not scheduled on the master node, and that all your nodes have unique hostnames (e.g. on Pi OS, run `sudo hostnamectl set-hostname worker-01` to set a Pi to `worker-01`).
 
 Then, you can deploy _all_ the applications configured in this repository with the `main.yml` playbook:
 
@@ -30,14 +43,14 @@ Then, you can deploy _all_ the applications configured in this repository with t
      These commands can be consolidated into one `ansible-galaxy install` command once Ansible 2.10 is released.
 
   3. Copy the `example.hosts.ini` inventory file to `hosts.ini`. Make sure it has the `master` and `node`s configured correctly.
-  4. Edit the `ingress_server_ip` and `load_balancer_server_ip` in `group_vars/all.yml` and set them each to an IP address of one of the nodes.
+  4. Edit the `ingress_server_ip` and `load_balancer_server_ip` in `group_vars/all.yml` and set them each to an IP address of one of the nodes. (Change any other variables in that file as necessary.)
   5. Run the playbook:
 
      ```
      ansible-playbook main.yml
      ```
 
-Once that's done, there will be variety of applications running on your cluster:
+Once that's done, there will be variety of applications running on your cluster, for example:
 
 | Software | Address | Notes |
 | -------- | ------- | ------- |
@@ -49,6 +62,8 @@ Once that's done, there will be variety of applications running on your cluster:
 | Minecraft | (`kubectl get service -n minecraft`) | See EULA in [Minecraft chart repo](https://github.com/helm/charts/tree/master/stable/minecraft) |
 | Pi-hole | http://pi.hole/ | See [pihole role README](roles/pihole/README.md) |
 
+The exact URLs will vary in your cluster; refer to the output of the Ansible playbook, which lists each service's exact URL.
+
 ## Caveats
 
 They are a'plenty.
@@ -59,7 +74,7 @@ There are a few architectural decisions that were made that are great for 'day o
 
 For example, the MariaDB PVCs are tied to the local node on which they were first deployed, and if you do something that results in the MariaDB Deployment to change nodes for the deployed Pod... you may run into warnings like `FailedScheduling: 3 node(s) had volume node affinity conflict.`
 
-Therefore, if you want to use this project as a base, and are planning on doing anything more than a local demo cluster, you are responsible for making changes to support a more production-ready setup, with better security and better configuration of volumes and multi-pod scalability.
+Therefore, if you want to use this project as a base, and are planning on doing anything more than a local demo cluster, you are responsible for making changes to support a more production-ready setup, with better security and better configuration of persistent volumes and multi-pod scalability.
 
 To do these things _correctly_ with Kubernetes takes a lot of work. It's usually _very_ easy—maybe deceptively easy—to get something working. It's harder to get it working reliably in an automated fashion when rebuilding the cluster from scratch (that's about the level where this repository is). And harder still is getting it working reliably with easy maintenance, fault-tolerance, and scalability.
 
@@ -99,7 +114,7 @@ Regardless of the reason, here's how to quickly wipe the cluster clean (without 
 
 Now you can go back to the steps above under 'Usage' to set up applications inside the cluster!
 
-> Important note: Any files that were downloaded for this repository, like the monitoring repository, still exist in the `pirate` user's home directory. For a more complete reset, also delete all those files and directories. Or to go thermonuclear, re-flash all the Pi's eMMC or microSD cards.
+> Important note: Any files that were downloaded for this repository, like the monitoring repository, still exist in the `pirate` (HypriotOS) or `pi` (Raspberry Pi OS) user's home directory. For a more complete reset, also delete all those files and directories. Or to go thermonuclear, re-flash all the Pi's eMMC or microSD cards.
 
 ## Author
 

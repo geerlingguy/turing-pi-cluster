@@ -8,6 +8,7 @@
 - name: Ensure required dependencies are installed.
   package:
     name:
+      - python3-pip
       - python3-setuptools
       - build-essential
       - golang

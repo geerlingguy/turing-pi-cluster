@@ -1,6 +1,8 @@
 ---
 ansible_user: pirate
-helm_arch: arm
+
+# For a 32-bit OS, set to 'arm'. For 64-bit OS, set to 'arm64'.
+helm_arch: arm64
 
 # Turing Pi.
 # ingress_server_ip: 10.0.100.74

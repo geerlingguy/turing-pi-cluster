@@ -7,7 +7,8 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
   - **Episode 1**: [Introduction to Clustering](https://www.youtube.com/watch?v=kgVz4-SEhbE) ([blog post](https://www.jeffgeerling.com/blog/2020/raspberry-pi-cluster-episode-1-introduction-clusters))
   - **Episode 2**: [Setting up the Cluster](https://www.youtube.com/watch?v=xNndbfxMCLo) ([blog post](https://www.jeffgeerling.com/blog/2020/raspberry-pi-cluster-episode-2-setting-cluster))
   - **Episode 3**: [Installing K3s on the Turing Pi](https://www.youtube.com/watch?v=N4bfNefjBSw) ([blog post](https://www.jeffgeerling.com/blog/2020/pi-cluster-episode-3-installing-k3s-kubernetes-on-turing-pi))
-  - **Episode 4**: Coming soon!
+  - **Episode 4**: [Minecraft, Pi-hole, Grafana + MORE!](https://www.youtube.com/watch?v=IafVCHkJbtI)
+  - **Episode 5**: Coming soon!
 
 You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts [www.pidramble.com](https://www.pidramble.com).
 

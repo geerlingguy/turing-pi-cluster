@@ -1,14 +1,14 @@
 ---
 # Set to 'pi' for Raspberry Pi OS, or 'pirate' for HypriotOS.
-ansible_user: pi
+ansible_user: pirate
 
 # Set to 'arm64' for a 64-bit OS, or 'arm' for 32-bit.
-helm_arch: arm64
+helm_arch: arm
 
 # Turing Pi.
-# ingress_server_ip: 10.0.100.74
-# load_balancer_server_ip: 10.0.100.99
+ingress_server_ip: 10.0.100.75
+load_balancer_server_ip: 10.0.100.99
 
 # Dramble.
-ingress_server_ip: 10.0.100.83
-load_balancer_server_ip: 10.0.100.131
+# ingress_server_ip: 10.0.100.83
+# load_balancer_server_ip: 10.0.100.131

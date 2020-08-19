@@ -1,6 +1,6 @@
 # Turing Pi Cluster - 7-node K3s Raspberry Pi Cluster
 
-![CI](https://github.com/geerlingguy/turing-pi-cluster/workflows/CI/badge.svg?branch=master&event=push)
+[![CI](https://github.com/geerlingguy/turing-pi-cluster/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/geerlingguy/turing-pi-cluster/actions?query=workflow%3ACI)
 
 <p align="center"><a href="https://www.youtube.com/watch?v=kgVz4-SEhbE"><img src="images/turing-pi-cluster-hero.jpg?raw=true" width="500" height="auto" alt="Turing Pi - Raspberry Pi Compute Module Cluster" /></a></p>
 

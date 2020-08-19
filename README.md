@@ -9,7 +9,7 @@ This repository is a companion to a YouTube series by Jeff Geerling in 2020:
   - **Episode 3**: [Installing K3s on the Turing Pi](https://www.youtube.com/watch?v=N4bfNefjBSw) ([blog post](https://www.jeffgeerling.com/blog/2020/pi-cluster-episode-3-installing-k3s-kubernetes-on-turing-pi))
   - **Episode 4**: [Minecraft, Pi-hole, Grafana + MORE!](https://www.youtube.com/watch?v=IafVCHkJbtI) ([blog post](https://www.jeffgeerling.com/blog/2020/raspberry-pi-cluster-episode-4-minecraft-pi-hole-grafana-and-more))
   - **Episode 5**: [Benchmarking the Turing Pi](https://www.youtube.com/watch?v=IoMxpndlDWI) ([blog post](https://www.jeffgeerling.com/blog/2020/raspberry-pi-cluster-episode-5-benchmarking-turing-pi))
-  - **Episode 6**: Coming soon!
+  - **Episode 6**: [Turing Pi Review](https://www.youtube.com/watch?v=aApByQWqnV0) ([blog post](https://www.jeffgeerling.com/blog/2020/raspberry-pi-cluster-episode-6-turing-pi-review))
 
 You might also be interested in another Raspberry-Pi cluster I've maintained for years, the [Raspberry Pi Dramble](https://www.pidramble.com), which is a Kubernetes Pi cluster in my basement that hosts [www.pidramble.com](https://www.pidramble.com).
 

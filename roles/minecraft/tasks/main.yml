@@ -6,20 +6,20 @@
     kind: Namespace
     state: present
 
-- name: Add stable chart repo.
+- name: Add itzg chart repo.
   helm_repository:
-    name: stable
-    repo_url: "https://kubernetes-charts.storage.googleapis.com"
+    name: itzg
+    repo_url: "https://itzg.github.io/minecraft-server-charts/"
 
 - name: Deploy Minecraft Helm chart.
   helm:
     name: minecraft
-    chart_ref: stable/minecraft
-    chart_version: '1.2.2'
+    chart_ref: itzg/minecraft
+    chart_version: '2.0.7'
     release_namespace: minecraft
     state: present
     values:
-      imageTag: armv7
+      imageTag: multiarch
       livenessProbe:
         initialDelaySeconds: 60
         periodSeconds: 10
@@ -30,7 +30,7 @@
         failureThreshold: 180
       minecraftServer:
         eula: true
-        version: '1.15.2'
+        version: "LATEST"
         Difficulty: easy
         motd: "Welcome to Minecraft on Turing Pi!"
         # These settings should help the server run better on underpowered Pis.

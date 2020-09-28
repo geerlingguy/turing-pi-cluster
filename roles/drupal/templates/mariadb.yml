@@ -42,7 +42,7 @@ spec:
             - name: MYSQL_RANDOM_ROOT_PASSWORD
               value: 'yes'
           volumeMounts:
-            - mountPath: /var/lib/mysql/
+            - mountPath: /var/lib/mysql
               name: database
           resources:
             limits:

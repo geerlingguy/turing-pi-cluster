@@ -59,7 +59,7 @@ spec:
               name: mariadb
           volumeMounts:
             - name: mariadb-persistent-storage
-              mountPath: /var/lib/mariadb
+              mountPath: /var/lib/mysql
           resources:
             limits:
               cpu: '1'

@@ -22,7 +22,7 @@ This cluster configuration has been tested with the following Raspberry Pi and O
   - Raspberry Pi 4 model B and HypriotOS
   - Raspberry Pi 4 model B and Raspberry Pi OS (32-bit)
   - Raspberry Pi 4 model B and Raspberry Pi OS (64-bit)
-  - Raspberry Pi Compute Module 3+ and HypriotOS
+  - Raspberry Pi Compute Module 3+ and HypriotOS using a [Turing Pi](https://turingpi.com/)
 
 Other models of Raspberry Pi and Compute Modules may or may not work, but the main thing you need is a cluster with at least 7 GB of RAM and at least 12 available CPU cores (every current Pi has 4 CPU cores), otherwise not all of the software will be able to run well.
 

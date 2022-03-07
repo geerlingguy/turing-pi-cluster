@@ -99,7 +99,7 @@ spec:
     app: drupal
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: drupal
@@ -110,6 +110,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Exact
             backend:
-              serviceName: drupal
-              servicePort: 80
+              service:
+                name: drupal
+                port:
+                  number: 80

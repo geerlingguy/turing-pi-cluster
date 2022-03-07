@@ -80,7 +80,7 @@ spec:
   type: NodePort
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wordpress
@@ -91,6 +91,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Exact
             backend:
-              serviceName: wordpress
-              servicePort: 80
+              service:
+                name: wordpress
+                port:
+                  number: 80

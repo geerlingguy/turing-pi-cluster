@@ -15,20 +15,43 @@
   helm:
     name: pihole
     chart_ref: mojo2600/pihole
-    chart_version: '1.7.6'
+    chart_version: '2.5.8'
     release_namespace: pihole
     state: present
     values:
       persistentVolumeClaim:
         enabled: true
+
       ingress:
         enabled: true
-      serviceTCP:
+        # Despite the comment in the default values file,
+        # hostname "pi.hole" is not added by default as ingress.
+        # The following directive replaces chart-example.local
+        # that would have been used otherwise.
+        hosts:
+        - pi.hole
+        # Allow TLS (optional), again adding the hostname which should
+        # not be necassary according to the comment in the source code.
+        tls:
+        - hosts:
+          - pi.hole
+
+      # Web service can be left as ClusterIP (default) and accessed through
+      # k3s' idefault traefic load balancer. If a new load balancer is to be
+      # created, it must listen on different ports not to collide with traefik.
+      #serviceWeb:
+      #  loadBalancerIP: '{{ load_balancer_server_ip }}'
+      #  type: LoadBalancer
+      #  http:
+      #    port: 2080
+      #  https:
+      #    port: 2443
+
+      # DNS's load balancer listens on port 53 and does not collide with traefik.
+      serviceDns:
         loadBalancerIP: '{{ load_balancer_server_ip }}'
         type: LoadBalancer
-      serviceUDP:
-        loadBalancerIP: '{{ load_balancer_server_ip }}'
-        type: LoadBalancer
+
       resources:
         limits:
           cpu: 200m
@@ -36,5 +59,6 @@
         requests:
           cpu: 100m
           memory: 128Mi
+
       # If using in the real world, set up admin.existingSecret instead.
       adminPassword: admin

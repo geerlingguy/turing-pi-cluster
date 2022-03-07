@@ -1,6 +1,6 @@
 ---
 collections:
-  - community.kubernetes
+  - kubernetes.core
 
 dependencies:
   - geerlingguy.helm

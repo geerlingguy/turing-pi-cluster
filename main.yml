@@ -10,7 +10,7 @@
   gather_facts: false
 
   collections:
-    - community.kubernetes
+    - kubernetes.core
 
   environment:
     # The location of the kubeconfig file on the master.

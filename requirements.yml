@@ -4,5 +4,5 @@ roles:
     version: 1.0.0
 
 collections:
-  - name: community.kubernetes
-    version: 0.11.0
+  - name: kubernetes.core
+    version: 2.2.3
